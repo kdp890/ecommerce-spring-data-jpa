@@ -22,4 +22,26 @@ public class Address {
 
     private String zipCode;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private Order orderObj;
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", street='" + street + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", country='" + country + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", order.id=" + orderObj.getId() +
+                ", order.status=" + orderObj.getStatus() +
+                ", order.orderTrackingNumber=" + orderObj.getOrderTrackingNumber() +
+                ", order.dateCreated=" + orderObj.getDateCreated() +
+                ", order.lastUpdated=" + orderObj.getLastUpdated() +
+                ", order.totalPrice=" + orderObj.getTotalPrice() +
+                ", order.totalQuantity=" + orderObj.getTotalQuantity() +
+                '}';
+    }
 }

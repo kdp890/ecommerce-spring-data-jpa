@@ -30,7 +30,7 @@ public class OneToOneUniDirectionalMappingTest {
         address.setCountry("India");
         address.setZipCode("411047");
 
-        order.setAddress(address);
+        order.setBillingAddress(address);
 
         orderRepository.save(order);
 
@@ -38,15 +38,15 @@ public class OneToOneUniDirectionalMappingTest {
 
     @Test
     void getOrderMethod() {
-        Order order = orderRepository.findById(2L).get();
-        System.out.println(order.toString());
+        Order order = orderRepository.findById(1L).get();
+        System.out.println(order);
     }
 
     @Test
     void updateOrderMethod() {
         Order order = orderRepository.findById(1L).get();
         order.setStatus("DELIVERED");
-        order.getAddress().setZipCode("520001");
+        order.getBillingAddress().setZipCode("520001");
         orderRepository.save(order);
 
     }
