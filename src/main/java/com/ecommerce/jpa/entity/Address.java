@@ -22,6 +22,7 @@ public class Address {
 
     private String zipCode;
 
+    //This order_id column is used to fetch through orderRepository as well as from addressRepository
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order orderObj;

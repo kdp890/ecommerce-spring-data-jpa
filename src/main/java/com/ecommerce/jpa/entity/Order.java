@@ -41,6 +41,7 @@ public class Order {
 //    @JoinColumn(name = "billing_address_id", referencedColumnName = "id")
 //    private Address billingAddress;
 
+    //mappedBy attribute is mandatory to map the Address entity. The value should be the name of the Order entity reference name in Address Entity class.
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "orderObj")
     private Address billingAddress;
 
