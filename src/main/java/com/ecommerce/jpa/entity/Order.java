@@ -47,7 +47,10 @@ public class Order {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "orderObj")
     private Address billingAddress;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    //default fetch type for one to many is LAZY
+    //LAZY-> will not fetch all the dependent data.
+    //EAGER-> will fetch all the dependent data.
+    @OneToMany(cascade = CascadeType.ALL,fetch =FetchType.EAGER)
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Set<OrderItem> orderItems = new HashSet<>();
 
@@ -69,5 +72,13 @@ public class Order {
                 ", billingAddress.country=" + billingAddress.getCountry() +
                 ", billingAddress.zipCode=" + billingAddress.getZipCode() +
                 '}';
+    }
+
+    public BigDecimal getTotalAmount(){
+        BigDecimal amount=new BigDecimal(0.0);
+        for(OrderItem item:this.orderItems){
+            amount=amount.add(item.getProduct().getPrice().multiply(new BigDecimal(item.getQuantity())));
+        }
+        return  amount;
     }
 }

@@ -18,6 +18,8 @@ public class OrderItem {
 
     private BigDecimal price;
 
+    private int Quantity;
+
     @OneToOne()
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
