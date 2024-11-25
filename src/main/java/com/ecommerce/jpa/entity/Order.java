@@ -7,6 +7,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -44,6 +46,10 @@ public class Order {
     //mappedBy attribute is mandatory to map the Address entity. The value should be the name of the Order entity reference name in Address Entity class.
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "orderObj")
     private Address billingAddress;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private Set<OrderItem> orderItems = new HashSet<>();
 
     //If we don't override the toString which is already defined by lombok , It will recursively call the toString from Address class order reference.
     @Override
