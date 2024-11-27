@@ -38,7 +38,7 @@ public class OneTOManyMappingTest {
 
         //create order item 1
         OrderItem orderItem2 = new OrderItem();
-        orderItem2.setProduct(productRepository.findById(3L).get());
+        orderItem2.setProduct(productRepository.findById(2L).get());
         orderItem2.setQuantity(3);
         orderItem2.setPrice(orderItem2.getProduct().getPrice().multiply(new BigDecimal(orderItem2.getQuantity())));
         orderItem2.setImageUrl(orderItem2.getProduct().getImageUrl());
@@ -52,6 +52,7 @@ public class OneTOManyMappingTest {
         address.setStreet("Gowlidoddi");
         address.setCountry("India");
         address.setZipCode("411047");
+        address.setOrderObj(order);
 
         order.setBillingAddress(address);
 

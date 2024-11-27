@@ -94,4 +94,25 @@ public class Product {
 
     @UpdateTimestamp
     private LocalDateTime lastUpdated;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private ProductCategory category;
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", sku='" + sku + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", active=" + active +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", dateCreated=" + dateCreated +
+                ", lastUpdated=" + lastUpdated +
+                ", categoryId=" + category.getId() +
+                ", categoryName=" + category.getCategoryName() +
+                '}';
+    }
 }
