@@ -22,14 +22,14 @@ public class OneTOManyMappingTest {
     //save order along with also save it's order items
 
     @Test
-    void testSaveOrder(){
+    void testSaveOrder() {
 
-        Order order=new Order();
-        String trackingNumber= UUID.randomUUID().toString();
-        order.setOrderTrackingNumber(trackingNumber.substring(0,10));
+        Order order = new Order();
+        String trackingNumber = UUID.randomUUID().toString();
+        order.setOrderTrackingNumber(trackingNumber.substring(0, 10));
         order.setStatus("In progress");
         //create order item 1
-        OrderItem orderItem1=new OrderItem();
+        OrderItem orderItem1 = new OrderItem();
         orderItem1.setProduct(productRepository.findById(1L).get());
         orderItem1.setQuantity(2);
         orderItem1.setPrice(orderItem1.getProduct().getPrice().multiply(new BigDecimal(orderItem1.getQuantity())));
@@ -37,8 +37,8 @@ public class OneTOManyMappingTest {
         order.getOrderItems().add(orderItem1);
 
         //create order item 1
-        OrderItem orderItem2=new OrderItem();
-        orderItem2.setProduct(productRepository.findById(2L).get());
+        OrderItem orderItem2 = new OrderItem();
+        orderItem2.setProduct(productRepository.findById(3L).get());
         orderItem2.setQuantity(3);
         orderItem2.setPrice(orderItem2.getProduct().getPrice().multiply(new BigDecimal(orderItem2.getQuantity())));
         orderItem2.setImageUrl(orderItem2.getProduct().getImageUrl());
@@ -56,5 +56,16 @@ public class OneTOManyMappingTest {
         order.setBillingAddress(address);
 
         orderRepository.save(order);
+    }
+
+    @Test
+    void testFetchOrder() {
+        Order order = orderRepository.findById(1L).get();
+        System.out.println(order.toString());
+    }
+
+    @Test
+    void testOrderMethod() {
+        orderRepository.deleteById(1L);
     }
 }

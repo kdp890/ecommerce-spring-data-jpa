@@ -50,35 +50,17 @@ public class Order {
     //default fetch type for one to many is LAZY
     //LAZY-> will not fetch all the dependent data.
     //EAGER-> will fetch all the dependent data.
-    @OneToMany(cascade = CascadeType.ALL,fetch =FetchType.EAGER)
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "orderObj")
     private Set<OrderItem> orderItems = new HashSet<>();
 
-    //If we don't override the toString which is already defined by lombok , It will recursively call the toString from Address class order reference.
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", orderTrackingNumber='" + orderTrackingNumber + '\'' +
-                ", totalQuantity=" + totalQuantity +
-                ", totalPrice=" + totalPrice +
-                ", status='" + status + '\'' +
-                ", dateCreated=" + dateCreated +
-                ", lastUpdated=" + lastUpdated +
-                ", billingAddress.id=" + billingAddress.getId() +
-                ", billingAddress.street=" + billingAddress.getStreet() +
-                ", billingAddress.city=" + billingAddress.getCity() +
-                ", billingAddress.state=" + billingAddress.getState() +
-                ", billingAddress.country=" + billingAddress.getCountry() +
-                ", billingAddress.zipCode=" + billingAddress.getZipCode() +
-                '}';
+
+    public BigDecimal getTotalAmount() {
+        BigDecimal amount = new BigDecimal(0.0);
+        for (OrderItem item : this.orderItems) {
+            amount = amount.add(item.getProduct().getPrice().multiply(new BigDecimal(item.getQuantity())));
+        }
+        return amount;
     }
 
-    public BigDecimal getTotalAmount(){
-        BigDecimal amount=new BigDecimal(0.0);
-        for(OrderItem item:this.orderItems){
-            amount=amount.add(item.getProduct().getPrice().multiply(new BigDecimal(item.getQuantity())));
-        }
-        return  amount;
-    }
+
 }
